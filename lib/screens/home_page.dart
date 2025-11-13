@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/domain/app_colors.dart';
 import 'package:myapp/screens/providers/cart_provider.dart';
 import 'package:myapp/screens/views/cart_view.dart';
+import 'package:myapp/screens/views/modal_sheet_pay.dart';
 import 'package:myapp/screens/views/products_view.dart';
 import 'package:provider/provider.dart';
 
@@ -20,20 +22,39 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Coffee"),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppContessa.contessa500,
         foregroundColor: Colors.white,
       ),
 
       body: IndexedStack(index: _selectedIndex, children: views),
 
       bottomNavigationBar: NavigationBar(
-        backgroundColor: Colors.deepPurple,
+        elevation: 10,
+        backgroundColor: AppContessa.contessa500,
+        indicatorColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
+        overlayColor: WidgetStateProperty.all(Colors.transparent),
+        labelTextStyle: WidgetStateProperty.all(
+          const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: AppContessa.contessa50,
+          ),
+        ),
         destinations: [
-          NavigationDestination(icon: Icon(Icons.coffee), label: 'Cafes'),
           NavigationDestination(
+            icon: Icon(Icons.coffee, color: AppContessa.contessa50),
+            selectedIcon: Icon(Icons.coffee, color: AppContessa.contessa950),
+            label: 'Cafes',
+          ),
+          NavigationDestination(
+            selectedIcon: Badge(
+              label: Text('${cartProvider.cart.length}'),
+              child: Icon(Icons.shopping_cart, color: AppContessa.contessa950),
+            ),
             icon: Badge(
               label: Text('${cartProvider.cart.length}'),
-              child: Icon(Icons.shopping_cart),
+              child: Icon(Icons.shopping_cart, color: AppContessa.contessa50),
             ),
             label: 'Cart',
           ),
@@ -45,6 +66,26 @@ class _HomePageState extends State<HomePage> {
           });
         },
       ),
+      floatingActionButton: _selectedIndex == 0
+          ? null
+          : FloatingActionButton(
+              backgroundColor: AppContessa.contessa500,
+              onPressed: () {
+                showModalBottomSheet(
+                  scrollControlDisabledMaxHeightRatio: 0.7,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ModalSheetPay(
+                        scrollController: ScrollController(),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: Icon(Icons.payments, color: AppContessa.contessa50),
+            ),
     );
   }
 }

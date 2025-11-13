@@ -15,11 +15,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => CartProvider())],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Coffee Shop',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        ),
         home: const HomePage(),
       ),
     );
