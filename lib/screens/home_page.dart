@@ -72,14 +72,31 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: AppContessa.contessa500,
               onPressed: () {
                 showModalBottomSheet(
-                  scrollControlDisabledMaxHeightRatio: 0.7,
+                  scrollControlDisabledMaxHeightRatio: 0.84536,
                   context: context,
                   builder: (BuildContext context) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ModalSheetPay(
-                        scrollController: ScrollController(),
-                      ),
+                    return Column(
+                      children: [
+                        Center(
+                          child: Container(
+                            height: 4,
+                            width: 40,
+                            margin: const EdgeInsets.only(top: 12, bottom: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[400],
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ModalSheetPay(
+                              scrollController: ScrollController(),
+                            ),
+                          ),
+                        ),
+                      ],
                     );
                   },
                 );

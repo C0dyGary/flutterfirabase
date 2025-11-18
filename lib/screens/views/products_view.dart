@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:myapp/domain/app_colors.dart';
+import 'package:myapp/domain/order.dart';
 import 'package:myapp/domain/products.dart';
 import 'package:myapp/repository/repository.dart';
 import 'package:myapp/screens/providers/cart_provider.dart';
+import 'package:myapp/screens/providers/order_provider.dart';
 import 'package:provider/provider.dart';
 
 class ProductsView extends StatefulWidget {
@@ -31,6 +32,16 @@ class _ProductsViewState extends State<ProductsView> {
   @override
   Widget build(BuildContext context) {
     final cartProvider = context.watch<CartProvider>();
+    final orderProvider = context.watch<OrderProvider>();
+    const int quantity = 1;
+
+    void addToOrderDetails(Product product) {
+      setState(() {
+        orderProvider.addOrderDetail(
+          OrderDetail(productId: product.id, quantity: quantity),
+        );
+      });
+    }
 
     return Container(
       color: Colors.white,
@@ -58,6 +69,7 @@ class _ProductsViewState extends State<ProductsView> {
                       confirmDismiss: (direction) async {
                         // Agregar al carrito
                         cartProvider.addToCart(listProducts!.products[index]);
+                        addToOrderDetails(listProducts!.products[index]);
                         // Mostrar mensaje
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -107,6 +119,7 @@ class _ProductsViewState extends State<ProductsView> {
                             cartProvider.addToCart(
                               listProducts!.products[index],
                             );
+                            addToOrderDetails(listProducts!.products[index]);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 backgroundColor: AppContessa.contessa900,
