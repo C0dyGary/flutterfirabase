@@ -44,6 +44,14 @@ class _PayPageState extends State<PayPage> {
       return;
     }
 
+    // Validación del precio total
+    if (cartProvider.totalPrice <= 0) {
+      _showErrorSnackBar(
+        'El carrito está vacío. Agrega productos antes de confirmar',
+      );
+      return;
+    }
+
     setState(() {
       _isProcessing = true;
       _errorMessage = null;
@@ -75,7 +83,7 @@ class _PayPageState extends State<PayPage> {
         await Future.delayed(const Duration(seconds: 2));
 
         if (mounted) {
-          Navigator.pushReplacementNamed(context, '/home');
+          Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
         }
       } else {
         setState(() {
@@ -344,7 +352,7 @@ class _PayPageState extends State<PayPage> {
               ),
               elevation: 2,
             ),
-            onPressed: _isProcessing
+            onPressed: (_isProcessing || totalPrice <= 0)
                 ? null
                 : () => _handleOrderCreation(orderProvider, cartProvider),
             child: Row(
