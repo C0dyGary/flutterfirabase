@@ -38,17 +38,23 @@ class Product {
     required this.stock,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
-    id: json["ID"],
-    createdAt: DateTime.parse(json["CreatedAt"]),
-    updatedAt: DateTime.parse(json["UpdatedAt"]),
-    deletedAt: json["DeletedAt"],
-    name: json["name"],
-    description: json["description"],
-    price: json["price"]?.toDouble(),
-    image: json["image"],
-    stock: json["stock"],
-  );
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json["ID"] ?? json["id"] ?? 0,
+      createdAt: json["CreatedAt"] != null
+          ? DateTime.parse(json["CreatedAt"])
+          : DateTime.now(),
+      updatedAt: json["UpdatedAt"] != null
+          ? DateTime.parse(json["UpdatedAt"])
+          : DateTime.now(),
+      deletedAt: json["DeletedAt"],
+      name: json["name"] ?? '',
+      description: json["description"] ?? '',
+      price: (json["price"] ?? 0).toDouble(),
+      image: json["image"] ?? '',
+      stock: json["stock"] ?? 0,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "ID": id,

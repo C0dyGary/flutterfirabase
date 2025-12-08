@@ -26,10 +26,7 @@ class _ModalSheetPayState extends State<ModalSheetPay> {
     final cartProvider = context.watch<CartProvider>();
     orderProvider.currentOrder.paymentMethod = selected.first;
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(26),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(27)),
 
       child: ListView(
         controller: widget.scrollController,
@@ -38,7 +35,7 @@ class _ModalSheetPayState extends State<ModalSheetPay> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
               child: Text(
-                'Select Payment Method',
+                'Seleccione el método de pago',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
@@ -60,7 +57,7 @@ class _ModalSheetPayState extends State<ModalSheetPay> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 subtitle: Text(
-                  'Unit Price: ${product.product.price.toStringAsFixed(2)} Bs',
+                  'Precio unitario: ${product.product.price.toStringAsFixed(2)} Bs',
                 ),
               );
             },
@@ -91,7 +88,7 @@ class _ModalSheetPayState extends State<ModalSheetPay> {
                 ButtonSegment(
                   value: 'Qr',
                   label: Text('QR Code'),
-                  icon: Icon(Icons.qr_code),
+                  icon: Icon(Icons.qr_code_scanner),
                 ),
                 ButtonSegment(
                   value: 'Wallet',

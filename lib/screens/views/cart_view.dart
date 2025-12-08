@@ -16,7 +16,6 @@ class _CartViewState extends State<CartView> {
   Widget build(BuildContext context) {
     final CartProvider cartProvider = context.watch<CartProvider>();
     final orderProvider = context.watch<OrderProvider>();
-    print('Cart length: ${orderProvider.currentOrder.orderDetails.length}');
 
     return cartProvider.cart.isEmpty
         ? const Center(child: Text('No hay productos en el carrito'))

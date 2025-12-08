@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:myapp/domain/order.dart';
 import 'package:myapp/screens/home_page.dart';
+import 'package:myapp/screens/login_paage.dart';
 import 'package:myapp/screens/pay_page.dart';
 import 'package:myapp/screens/providers/cart_provider.dart';
 import 'package:myapp/screens/providers/order_provider.dart';
@@ -26,12 +28,20 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Coffee Shop',
+        title: 'Coffee House',
         debugShowCheckedModeBanner: false,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('es', ''), Locale('en', '')],
+        locale: const Locale('es', ''),
         home: const HomePage(),
         routes: {
           '/pay': (context) => const PayPage(),
           '/home': (context) => const HomePage(),
+          '/login': (context) => const MyLoginCoffeePage(),
         },
       ),
     );
